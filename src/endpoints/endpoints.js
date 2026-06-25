@@ -9,17 +9,17 @@ export const IMAGE_BASE_URL = 'https://em.fothubtv.com'
 
 export const ENDPOINT = {
     // Authentication
-    LOGIN : `{API_BASE_URL}/auth/login/`,
-    TOKEN_REFRESH : `'{API_BASE_URL}/auth/token/refresh/`, 
+    LOGIN : `${API_BASE_URL}/auth/login/`,
+    TOKEN_REFRESH : `${API_BASE_URL}/auth/token/refresh/`, 
 
     //Categories
     CATEGORIES : {
-        LIST : `{API_BASE_URL}/categories/`,
-        CREATE : `{API_BASE_URL}/categories/create/`,
-        DETAIL : (uuid) => `{API_BASE_URL}/categories/${uuid}/`,
-        UPDATE : (uuid) => `{API_BASE_URL}/categories/${uuid}/update/`,
-        DETELE : (uuid) => `{API_BASE_URL}/categories/${uuid}/delete/`,
-        BULK_DETELE : `{API_BASE_URL}/categories/bulk-delete/`,
+        LIST : `${API_BASE_URL}/categories/`,
+        CREATE : `${API_BASE_URL}/categories/create/`,
+        DETAIL : (uuid) => `${API_BASE_URL}/categories/${uuid}/`,
+        UPDATE : (uuid) => `${API_BASE_URL}/categories/${uuid}/update/`,
+        DETELE : (uuid) => `${API_BASE_URL}/categories/${uuid}/delete/`,
+        BULK_DETELE : `${API_BASE_URL}/categories/bulk-delete/`,
     },
 
     // States 

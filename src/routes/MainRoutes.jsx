@@ -3,10 +3,19 @@ import { lazy } from 'react';
 // project imports
 import Loadable from 'components/Loadable';
 import DashboardLayout from 'layout/Dashboard';
+//User
 import UserList from '../pages/user/view/UserList';
 import UserDetail from '../pages/user/view/UserDetail';
 import UserCreate from '../pages/user/entry/UserCreate';
 import UserUpdate from '../pages/user/entry/UserUpdate';
+//Categories
+import CategoriesList from '../pages/categories/view/CategoriesList';
+
+//State
+import StatesList from '../pages/state/view/StatesList';
+import CategoriesUpdate from '../pages/categories/entry/CategoriesUpdate';
+import CategoriesDetail from '../pages/categories/view/CategoriesDetail';
+
 
 // render- Dashboard
 const DashboardDefault = Loadable(lazy(() => import('pages/dashboard/default')));
@@ -31,6 +40,7 @@ const MainRoutes = {
         }
       ]
     },
+    //User
     {
       path: '/user/list',
       element: <UserList />
@@ -46,7 +56,25 @@ const MainRoutes = {
     {
       path: '/user/update/:id',
       element: <UserUpdate />
-    }
+    },
+    //Categories
+    {
+      path: '/categories/list',
+      element: <CategoriesList />
+    },
+    {
+      path: 'categories/update/:id',
+      element: <CategoriesUpdate />
+    },
+    {
+      path: 'categories/:id',
+      element: <CategoriesDetail />
+    },
+    //State
+    {
+      path: '/states/list',
+      element: <StatesList />
+    },
   ]
 };
 
