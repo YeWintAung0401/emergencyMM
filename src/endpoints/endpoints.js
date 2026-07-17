@@ -18,8 +18,8 @@ export const ENDPOINT = {
         CREATE : `${API_BASE_URL}/categories/create/`,
         DETAIL : (uuid) => `${API_BASE_URL}/categories/${uuid}/`,
         UPDATE : (uuid) => `${API_BASE_URL}/categories/${uuid}/update/`,
-        DETELE : (uuid) => `${API_BASE_URL}/categories/${uuid}/delete/`,
-        BULK_DETELE : `${API_BASE_URL}/categories/bulk-delete/`,
+        DELETE : (uuid) => `${API_BASE_URL}/categories/${uuid}/delete/`,
+        BULK_DELETE : `${API_BASE_URL}/categories/bulk-delete/`,
     },
 
     // States 

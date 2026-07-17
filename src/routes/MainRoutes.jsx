@@ -10,6 +10,7 @@ import UserCreate from '../pages/user/entry/UserCreate';
 import UserUpdate from '../pages/user/entry/UserUpdate';
 //Categories
 import CategoriesList from '../pages/categories/view/CategoriesList';
+import CategoriesCreate from '../pages/categories/entry/CategoriesCreate';
 
 //State
 import StatesList from '../pages/state/view/StatesList';
@@ -63,7 +64,11 @@ const MainRoutes = {
       element: <CategoriesList />
     },
     {
-      path: 'categories/update/:id',
+      path: '/categories/create',
+      element: <CategoriesCreate />
+    },
+    {
+      path: '/categories/update/:id',
       element: <CategoriesUpdate />
     },
     {

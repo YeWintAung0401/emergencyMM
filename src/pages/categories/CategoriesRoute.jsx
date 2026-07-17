@@ -18,6 +18,14 @@ const CategoriesRoute = {
       url: '/categories/list',
       icon: icons.LoginOutlined,
       target: false
+    },
+    {
+      id: 'categories-create',
+      title: 'Create Categories',
+      type: 'item',
+      url: '/categories/create',
+      icon: icons.ProfileOutlined,
+      target: false
     }
   ]
 };

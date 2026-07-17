@@ -1,11 +1,10 @@
 //rafce
 import React, { useEffect, useState } from 'react'
 import { API_BASE_URL, ENDPOINT, IMAGE_BASE_URL } from '../../../endpoints/endpoints'
-import { Avatar, message, Space, Spin, Table } from 'antd'
+import { Avatar, Button, message, Space, Spin, Table } from 'antd'
 
 import { flex, width } from '@mui/system'
 import { useNavigate } from 'react-router'
-import { Button } from 'antd/es/radio'
 import { size } from 'lodash-es'
 
 
@@ -41,25 +40,12 @@ const CategoriesList = () => {
         try {
             setLoading(true);
 
-            const offset = (page-1)* limit
-
-            // Using (let)
-            // let url = ENDPOINT.CATEGORIES.LIST.replace('{API_BASE_URL}', API_BASE_URL)
-            // const pag = url.includes('?') ? '&' : '?';
-            // url = `${url}${pag}limit=${limit}&offset={offset}$page=${page}`
-
-            const url = ENDPOINT.CATEGORIES.LIST.replace('{API_BASE_URL}', API_BASE_URL)
-            const pag = url.includes('?') ? '&' : '?';
-            const base_url = 
-
-            // const response = await fetch(url)
-            // if (!response.ok) { //ok==200
-            //     throw new Error('Network Error')
-            // }
+            const offset = (page - 1) * limit;
+            const url = `${ENDPOINT.CATEGORIES.LIST}?limit=${limit}&offset=${offset}&page=${page}`;
 
             const response = await fetch(url, {
                 method: 'GET',
-                header: {
+                headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 }
@@ -68,7 +54,7 @@ const CategoriesList = () => {
             //Token EXPIRE
             if (response.status == 401) {
                 localStorage.removeItem('access_token');
-                localStorage.removeItem('refresh-token');
+                localStorage.removeItem('refresh_token');
                 messageAPI.error("Session Expired, Login again!");
                 navigate('/login')
                 return
@@ -90,9 +76,7 @@ const CategoriesList = () => {
 
         } catch (error) {
             console.error("Categories Fetch Error", error)
-            message.error("Categories Fetch Error")
-
-
+            messageAPI.error("Categories Fetch Error")
         } finally {
             setLoading(false);
         }
@@ -101,35 +85,32 @@ const CategoriesList = () => {
     const handleDetail = (record) => {
         console.log("Detail", record);
         navigate(`/categories/${record.id}`);
-
     }
 
     const handleEdit = (record) => {
         console.log("Edit", record);
-        navigate('/categories/update/${record.id}');
+        navigate(`/categories/update/${record.id}`);
     }
 
     // DELETE
     const handleDelete = async (id) => {
 
-        if (window.confirm("Are you sure you want to delete this category?")) {
+        if (!window.confirm("Are you sure you want to delete this category?")) {
             return;
         }
 
         const token = localStorage.getItem('access_token');
         if (!token) {
-            messageApi.warning("Please Login First");
+            messageAPI.warning("Please Login First");
             navigate('/login');
             return;
         }
 
         try {
             setLoading(true);
+            const url = ENDPOINT.CATEGORIES.DELETE(id);
 
-            let url = ENDPOINT.CATEGORIES.DELETE(id);
-            url = url.repeat('{API_BASE_URL}', API_BASE_URL);
-
-            response = await fetch(url, {
+            const response = await fetch(url, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -137,28 +118,25 @@ const CategoriesList = () => {
                 }
             })
 
-
             //token exp
             if (response.status === 401) {
                 localStorage.removeItem('access_token');
                 localStorage.removeItem('refresh_token');
-                messageApi.error("Session Exp, Please Login Again")
+                messageAPI.error("Session Exp, Please Login Again")
                 navigate('/login')
                 return
             }
 
-
-            if (!response.ok) {
-                messageApi.success("Category delete successfully");
-
+            if (response.ok) {
+                messageAPI.success("Category deleted successfully");
                 setCategories(preCategories => preCategories.filter(category => category.id !== id));
+            } else {
+                throw new Error("Failed to delete category");
             }
-
 
         } catch (error) {
             console.error("Error Fetch Categories", error);
-            message.error("Categories not fetch")
-
+            messageAPI.error("Category could not be deleted")
         } finally {
             setLoading(false);
         }
@@ -222,16 +200,21 @@ const CategoriesList = () => {
     if (loading) {
         return (
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
-                <Spin size='large' description="Loading Categories" />
+                <Spin size='large' tip="Loading Categories..." />
             </div>
-
         )
     }
+
     return (
         <div style={{ padding: '24px', background: '#dcffd9', borderRadius: '8px' }}>
             {/* message */}
             {contextHolder}
-            <h2> CategoriesList </h2>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+                <h2 style={{ margin: 0 }}>Categories List</h2>
+                <Button type="primary" onClick={() => navigate('/categories/create')}>
+                    Create Category
+                </Button>
+            </div>
             <Table
                 dataSource={categories}
                 columns={colums}
@@ -250,7 +233,6 @@ const CategoriesList = () => {
             />
         </div>
     )
-
 }
 
 export default CategoriesList

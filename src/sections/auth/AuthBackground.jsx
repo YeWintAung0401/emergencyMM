@@ -10,21 +10,23 @@ export default function AuthBackground() {
 
   return (
     <Box
-      sx={{
-        position: 'absolute',
-        filter: 'blur(18px)',
-        zIndex: -1,
-        bottom: 0,
-        transform: 'inherit'
-      }}
-    >
-      <img
-        src={logoIconImage}
-        width="100%"
-        height="calc(100vh - 175px)"
-        viewBox="0 0 405 809"
-        fill="none"
-      />
-    </Box>
+  sx={{
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: '100%',      
+    filter: 'blur(30px)',
+    zIndex: -1,
+  }}
+>
+  <img
+    src={logoIconImage}
+    width="30%"
+    height="30%"
+    viewBox="0 0 405 809"
+    fill="none"
+  />
+</Box>
   );
 }

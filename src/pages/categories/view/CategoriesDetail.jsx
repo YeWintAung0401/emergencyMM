@@ -81,6 +81,13 @@ const fetchCategoriesDetail = async (token) => {
         console.log(data);
         setCategory(data)
 
+        if (data && data.data) {
+          setCategory(data.data)
+        } else {
+          setCategory([])
+        }
+
+
     } catch (error) {
         console.error("Categories Fetch Error", error)
         showMessage("Categories Fetch Error", "error") // fix 4: message.error → showMessage
@@ -96,10 +103,10 @@ const fetchCategoriesDetail = async (token) => {
 
   return (
     <Box>
-      <Card sx={{ maxWidth: 700, boxShadow: '0 4px 20px black', borderRadius: '12px' }}>
+      <Card sx={{ width: '100%', boxShadow: '0 4px 20px black', borderRadius: '12px' }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 2 }}>
           <Typography variant='h6'>Categories Detail</Typography>
-          <Button variant='contained' startIcon={<EditIcon />} sx={{ textTransform: 'none', borderRadius: '6px' }}>
+          <Button variant='contained' startIcon={<EditIcon />} onClick={() => navigate(`/categories/update/${id}`)} sx={{ textTransform: 'none', borderRadius: '6px' }}>
             Edit
           </Button>
         </Box>
@@ -133,8 +140,12 @@ const fetchCategoriesDetail = async (token) => {
                       <TableCell>{category.id}</TableCell>
                     </TableRow>
                     <TableRow>
-                      <TableCell><b>Name</b></TableCell>
-                      <TableCell>{category.name}</TableCell>
+                      <TableCell><b>Name(English)</b></TableCell>
+                      <TableCell>{category.name_en}</TableCell>
+                    </TableRow>
+                    <TableRow>
+                      <TableCell><b>Name(Burmese)</b></TableCell>
+                      <TableCell>{category.name_mm}</TableCell>
                     </TableRow>
                     <TableRow>
                       <TableCell><b>Logo</b></TableCell>
