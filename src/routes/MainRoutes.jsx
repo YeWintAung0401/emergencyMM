@@ -72,7 +72,7 @@ const MainRoutes = {
       element: <CategoriesUpdate />
     },
     {
-      path: 'categories/:id',
+      path: '/categories/:id',
       element: <CategoriesDetail />
     },
     //State
