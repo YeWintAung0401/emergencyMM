@@ -14,6 +14,9 @@ import CategoriesCreate from '../pages/categories/entry/CategoriesCreate';
 
 //State
 import StatesList from '../pages/state/view/StatesList';
+import StatesDetail from '../pages/state/view/StatesDetail';
+import StatesCreate from '../pages/state/entry/StatesCreate';
+import StatesUpdate from '../pages/state/entry/StatesUpdate';
 import CategoriesUpdate from '../pages/categories/entry/CategoriesUpdate';
 import CategoriesDetail from '../pages/categories/view/CategoriesDetail';
 
@@ -79,6 +82,18 @@ const MainRoutes = {
     {
       path: '/states/list',
       element: <StatesList />
+    },
+    {
+      path: '/states/create',
+      element: <StatesCreate />
+    },
+    {
+      path: '/states/update/:id',
+      element: <StatesUpdate />
+    },
+    {
+      path: '/states/:id',
+      element: <StatesDetail />
     },
   ]
 };
